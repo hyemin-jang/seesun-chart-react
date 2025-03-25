@@ -10,7 +10,10 @@ import { DateInterval, DateString } from '../../types';
 
 import type { AxisScale } from '.';
 
-type AxisScaleTimeDomain = [DateString, DateString];
+type AxisScaleTimeDomain = [
+  DateString | undefined | null,
+  DateString | undefined | null,
+];
 
 interface AxisScaleTimeConfig {
   start?: DateString;
@@ -139,8 +142,8 @@ export default function axisScaleTime(
     tickPreferredInterval,
     formatTickTime,
   } = config || {};
-  const startDate = (start || domain[0]) ? new Date(start || domain[0]) : null;
-  const endDate = (end || domain[1]) ? new Date(end || domain[1]) : null;
+  const startDate = start ? new Date(start) : domain[0] ? new Date(domain[0]) : new Date();
+  const endDate = end ? new Date(end) : domain[1] ? new Date(domain[1]) : new Date();
   const formatTicks = (ticks: Date[]) => (
     formatTickTime
       ? ticks.map((tick) => formatTickTime(tick))
@@ -148,7 +151,7 @@ export default function axisScaleTime(
   );
 
   const scaleUtc = d3.scaleUtc()
-    .domain(startDate && endDate ? [startDate, endDate] : []);
+    .domain([startDate, endDate]);
 
   function axisScale(v: Date) {
     return scaleUtc(v);
@@ -168,7 +171,7 @@ export default function axisScaleTime(
     const maxWidthTickText = d3.select('svg').append('text').text(maxWidthTick || '');
     const maxTickWidth = maxWidthTickText.node()?.getBBox().width || 0;
     const count = (rangeEnd - rangeStart) / maxTickWidth;
-    const tickValues = startDate && endDate ? getTicks(startDate, endDate, count) : [];
+    const tickValues = getTicks(startDate, endDate, count);
     const tickLabels = formatTicks(tickValues);
 
     maxWidthTickText.remove();

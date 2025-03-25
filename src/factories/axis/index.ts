@@ -25,7 +25,7 @@ type AxisScaleValueType<TAxisScaleType extends AxisScaleType> = (
   TAxisScaleType extends 'categorical'
   ? AxisScaleCategoricalDomain[number]['id']
   : TAxisScaleType extends 'linear'
-  ? AxisScaleLinearDomain[number]
+  ? d3.NumberValue
   : TAxisScaleType extends 'time'
   ? Date
   : never

@@ -3,7 +3,10 @@ import { isNumber } from 'lodash';
 
 import type { AxisScale } from '.';
 
-type AxisScaleLinearDomain = [number, number];
+type AxisScaleLinearDomain = [
+  number | undefined | null,
+  number | undefined | null,
+];
 
 interface AxisScaleLinearConfig {
   minValue?: number | 'auto';
@@ -16,6 +19,8 @@ export default function axisScaleLinear(
   domain: AxisScaleLinearDomain,
   config?: AxisScaleLinearConfig,
 ): AxisScale<'linear'> {
+  const startValue = domain[0] || 0;
+  const endValue = domain[1] || 1;
   const {
     minValue,
     maxValue,
@@ -24,8 +29,8 @@ export default function axisScaleLinear(
   } = config || {};
 
   const [autoMinValue, autoMaxValue] = d3.nice(
-    domain[0],
-    domain[1],
+    startValue,
+    endValue,
     tickPreferredCount,
   );
   const autoTickStep = d3.tickStep(
@@ -38,34 +43,30 @@ export default function axisScaleLinear(
     isNumber(minValue)
       ? minValue
       : minValue === 'auto'
-        ? domain[0] - autoMinValue < autoTickStep / 4
+        ? startValue - autoMinValue < autoTickStep / 4
           ? autoMinValue - autoTickStep
           : autoMinValue
-        : isNumber(domain[0]) && domain[0] < 0
-          ? domain[0]
+        : startValue < 0
+          ? startValue
           : 0
   );
   const max = (
     isNumber(maxValue)
       ? maxValue
       : maxValue === 'auto'
-        ? autoMaxValue - domain[1] < autoTickStep / 4
+        ? autoMaxValue - endValue < autoTickStep / 4
           ? autoMaxValue + autoTickStep
           : autoMaxValue
-        : domain[1] <= 0
+        : endValue <= 0
           ? 0
-          : domain[1] || 1
+          : endValue
   );
 
   const scaleLinear = d3.scaleLinear()
-    .domain(
-      minValue !== 'auto' && min === max
-        ? [min, max + 1]
-        : [min, max],
-    )
+    .domain([min, max])
     .nice(tickPreferredCount);
 
-  function axisScale(v: number) {
+  function axisScale(v: d3.NumberValue) {
     return scaleLinear(v);
   }
 
@@ -78,7 +79,7 @@ export default function axisScaleLinear(
 
   function range(): [number, number];
   function range(_range: [number, number]): void;
-  function range(this: AxisScale<'categorical'>, _range?: [number, number]) {
+  function range(this: AxisScale<'linear'>, _range?: [number, number]) {
     if (_range) {
       scaleLinear.range(_range);
       return this;
