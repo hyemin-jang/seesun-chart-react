@@ -1,14 +1,19 @@
 {
-  "name": "seesun-chart",
+  "name": "seesun-chart-react",
   "version": "0.0.0",
-  "description": "",
+  "description": "Responsive, interactive React chart library based on D3",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "react-component",
+    "chart",
+    "responsive"
+  ],
   "author": "Hyemin Jang",
   "license": "ISC",
   "devDependencies": {
@@ -20,11 +25,25 @@
     "@storybook/react": "^8.5.8",
     "@storybook/react-vite": "^8.5.8",
     "@storybook/test": "^8.5.8",
-    "prop-types": "^15.8.1",
-    "storybook": "^8.5.8"
+    "@types/d3": "^7.4.3",
+    "@types/lodash": "^4.17.15",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-import-resolver-typescript": "^3.8.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "storybook": "^8.5.8",
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "d3": "^7.9.0",
-    "react": "^19.0.0"
+    "lodash": "^4.17.21",
+    "react": "^19.0.0",
+    "uuid": "^11.1.0"
   }
 }
