@@ -1,0 +1,21 @@
+.seesunchart-axis-line {
+  stroke: var(--seesunchart-color-line-subtle);
+  stroke-width: 1px;
+  stroke-linecap: round;
+}
+.seesunchart-axis-label {
+  fill: var(--seesunchart-color-label-subtle);
+  font-size: 12px;
+  cursor: default;
+}
+.seesunchart-axis-tick-line {
+  stroke: var(--seesunchart-color-line-subtle);
+}
+.seesunchart-axis-tick-label {
+  fill: var(--seesunchart-color-label-subtle);
+  font-size: 10px;
+  cursor: default;
+}
+.seesunchart-axis-grid-line {
+  stroke: var(--seesunchart-color-grid-line);
+}

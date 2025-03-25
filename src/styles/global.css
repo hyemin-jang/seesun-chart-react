@@ -1,0 +1,10 @@
+:root {
+  --seesunchart-color-background: hsl(0, 0%, 100%); 
+  --seesunchart-color-background-hovered: hsl(218, 22%, 10%, 0.05);
+  --seesunchart-color-label: hsl(218, 22%, 10%);
+  --seesunchart-color-label-subtle: hsla(216, 5%, 38%, 1); 
+  --seesunchart-color-line: hsl(218, 22%, 10%);
+  --seesunchart-color-line-subtle: hsla(216, 5%, 38%, 1); 
+  --seesunchart-color-grid-line: hsl(216, 16%, 94%);  
+  --seesunchart-color-highlight: hsl(0, 0%, 100%);
+} 
